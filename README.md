@@ -2,7 +2,7 @@
 
 > **WeEuroSA** is a visually dynamic, earth-themed weather application that offers real-time forecasts for cities across Europe and South Africa. Built for accessibility, reliability, and beauty — from Amsterdam to Cape Town.
 
-![WeEuroSA Screenshot](Screenshot.png) <!-- Replace with your actual screenshot -->
+![WeEuroSA Screenshot](images/Screenshot.png) <!-- Replace with your actual screenshot -->
 
 ---
 
