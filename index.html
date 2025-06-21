@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Beautiful weather application with earth theme">
+    <meta name="author" content="Cebo Mlotshwa">
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22256%22 height=%22256%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2250%22 fill=%22%230058ff%22></rect><path fill=%22%23fff%22 d=%22M72.15 21.33L72.15 21.33Q74.49 22.50 74.90 25.02Q75.30 27.54 73.59 29.61L73.59 29.61Q72.42 31.23 70.58 31.41Q68.73 31.59 66.84 30.69L66.84 30.69Q64.68 29.70 62.30 29.16Q59.91 28.62 57.30 28.62L57.30 28.62Q52.44 28.62 48.62 30.15Q44.79 31.68 42.09 34.52Q39.39 37.35 38.00 41.22Q36.60 45.09 36.60 49.77L36.60 49.77Q36.60 55.26 38.18 59.31Q39.75 63.36 42.54 66.06Q45.33 68.76 49.11 70.07Q52.89 71.37 57.30 71.37L57.30 71.37Q59.73 71.37 62.16 70.92Q64.59 70.47 66.84 69.30L66.84 69.30Q68.73 68.40 70.58 68.67Q72.42 68.94 73.68 70.56L73.68 70.56Q75.48 72.81 74.99 75.20Q74.49 77.58 72.24 78.66L72.24 78.66Q69.90 79.83 67.43 80.60Q64.95 81.36 62.43 81.77Q59.91 82.17 57.30 82.17L57.30 82.17Q50.82 82.17 45.02 80.10Q39.21 78.03 34.67 73.98Q30.12 69.93 27.51 63.86Q24.90 57.78 24.90 49.77L24.90 49.77Q24.90 42.84 27.29 36.99Q29.67 31.14 34.04 26.87Q38.40 22.59 44.34 20.21Q50.28 17.82 57.30 17.82L57.30 17.82Q61.26 17.82 65.04 18.72Q68.82 19.62 72.15 21.33Z%22></path></svg>"
+    />
+    <!-- Our codes -->
+    <script defer src="js/main.js"></script>
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="-1" />
+    <meta http-equiv="CACHE-CONTROL" content="NO-CACHE" />
+    <!-- CSS Stylesheets -->
+    <link rel="stylesheet" href="css/master.css" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>EarthWeather | WeEuroSA</title>
+  </head>
+
+  <body>
+    <header class="navbar">
+      <div class="navbar-brand">
+        <h1 class="page">WeEuroSA</h1>
+        <p class="tagline">You Asked - The Weather</p>
+      </div>
+      <div class="location-selector">
+        <select name="Locations" aria-label="Select a location" class="styled-select">
+          <option value="">Select a location</option>
+        </select>
+        <div class="select-arrow">
+          <i class="fas fa-chevron-down"></i>
+        </div>
+      </div>
+    </header>
+
+    <main class="main">
+      <div class="weather-display">
+        <div class="left data">
+          <div class="weather-icon-container">
+            <img src="./images/clear.svg" alt="Clear weather icon" class="wicon" />
+          </div>
+          <div class="temperature-display">
+            <span id="summary-temp">30°</span>
+            <span class="unit">C</span>
+          </div>
+          <p id="location" class="location-text">Amsterdam, Netherlands</p>
+        </div>
+
+        <div class="right data">
+          <div class="time-display">
+            <span id="present-time">07:00 PM</span>
+            <p id="present-day">Sunday, May 23</p>
+          </div>
+          <div class="weather-stats">
+            <div class="stat-item">
+              <i class="fas fa-wind stat-icon"></i>
+              <span id="wind">20m/s | 30° NE</span>
+            </div>
+            <div class="stat-item">
+              <i class="fas fa-tint stat-icon"></i>
+              <span id="humid">30%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <section class="data-list">
+        <div class="temperature-range">
+          <div class="range-item">
+            <i class="fas fa-temperature-high range-icon"></i>
+            <div>
+              <p>High</p>
+              <span id="highest">30°C</span>
+            </div>
+          </div>
+          <div class="range-item">
+            <i class="fas fa-temperature-low range-icon"></i>
+            <div>
+              <p>Low</p>
+              <span id="lowest">-5°C</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="weather-summary">
+          <div class="summary-item">
+            <i class="fas fa-cloud stat-icon-large"></i>
+            <div>
+              <p id="weekly-weather">Cloud Cover</p>
+              <span id="weekly-weather-point">50%</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="data-details added"></section>
+      
+      <div class="developer-credit">
+        <p>Developed with <i class="fas fa-heart"></i> by Cebo Mlotshwa</p>
+      </div>
+    </footer>
+    
+    <div class="background-gradient"></div>
+  </body>
+</html>
