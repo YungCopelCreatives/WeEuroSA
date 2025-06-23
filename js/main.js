@@ -441,6 +441,10 @@ function initApp() {
       updateData(cityCoordinates[selectedCityIndex]); // Update weather data every 5 minutes
     }
   }, 300000); // 300000 ms = 5 minutes
+  
+  // Ensure proper sizing
+  window.addEventListener('resize', adjustLayout);
+  adjustLayout();
 }
 
 // Update date and time display
@@ -457,19 +461,19 @@ function applyDynamicGradient() {
   
   if (hour >= 6 && hour < 12) {
     // Morning gradient (sunrise)
-    gradient = "linear-gradient(135deg, #0a2463 0%, #3a7bd5 50%, #00d2ff 100%)";
+    gradient = "linear-gradient(135deg, var(--dark-blue) 0%, var(--earth-blue) 50%, var(--secondary-color) 100%)";
   } else if (hour >= 12 && hour < 18) {
     // Daytime gradient
-    gradient = "linear-gradient(135deg, #0a2463 0%, #1e88e5 50%, #00b894 100%)";
+    gradient = "linear-gradient(135deg, var(--dark-blue) 0%, var(--earth-blue) 50%, var(--earth-green) 100%)";
   } else if (hour >= 18 && hour < 21) {
     // Evening gradient (sunset)
-    gradient = "linear-gradient(135deg, #0a2463 0%, #6a11cb 50%, #fc4a1a 100%)";
+    gradient = "linear-gradient(135deg, var(--dark-blue) 0%, var(--sunset-purple) 50%, var(--sunset-orange) 100%)";
   } else {
     // Night gradient
-    gradient = "linear-gradient(135deg, #000428 0%, #004e92 100%)";
+    gradient = "linear-gradient(135deg, var(--night-blue) 0%, var(--night-dark-blue) 100%)";
   }
   
-  backgroundGradient.style.background = gradient;
+  document.querySelector('.background-gradient').style.background = gradient;
 }
 
 // Populate location select dropdown
@@ -719,3 +723,24 @@ async function getCityDataWithRetry(city, product, retries = 3) {
   
   throw lastError; // Throw the last error after all retries
 }
+
+function adjustLayout() {
+  const vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty('--vh', `${vh}px`);
+  
+  const main = document.querySelector('.main');
+  const header = document.querySelector('.navbar');
+  const footer = document.querySelector('.footer');
+  
+  // Calculate available height
+  const availableHeight = window.innerHeight - header.offsetHeight - footer.offsetHeight;
+  main.style.minHeight = `${availableHeight}px`;
+}
+
+// Call this on initial load and resize
+document.addEventListener('DOMContentLoaded', () => {
+  initApp();
+  adjustLayout();
+});
+
+window.addEventListener('resize', adjustLayout);

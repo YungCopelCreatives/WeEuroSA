@@ -5,6 +5,10 @@
   --dark-blue: #0a2463;
   --earth-blue: #1e88e5;
   --earth-green: #00b894;
+  --sunset-orange: #fc4a1a;
+  --sunset-purple: #6a11cb;
+  --night-blue: #000428;
+  --night-dark-blue: #004e92;
   --text-light: #ffffff;
   --text-dark: #222222;
   --card-bg: rgba(255, 255, 255, 0.1);
@@ -17,50 +21,39 @@
   padding: 0;
 }
 
+/* Reset body and html to prevent scrolling */
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
+  padding: 0;
   color: var(--text-light);
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
 }
 
-.background-gradient {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, var(--dark-blue) 0%, var(--earth-blue) 50%, var(--earth-green) 100%);
-  z-index: -1;
-  opacity: 0.9;
-}
-
-.visually-hidden {
-  position: absolute !important;
-  height: 1px; 
-  width: 1px;
-  overflow: hidden;
-  clip: rect(1px,1px,1px,1px);
-  white-space: nowrap;
-}
-
-/* Navbar */
+/* Make navbar full width */
 .navbar {
   background: rgba(0, 88, 255, 0.8);
   color: white;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
   position: relative;
   z-index: 10;
+  width: 100%;
+  max-width: 100%;
 }
 
 .navbar-brand {
@@ -127,40 +120,50 @@ body {
   color: white;
 }
 
-/* Main Content */
+/* Main content area - should take remaining space */
 .main {
-  flex-grow: 1;
+  flex: 1;
+  overflow-y: auto; /* Allow scrolling only in main content if needed */
   display: flex;
   justify-content: center;
   align-items: center;
   background: transparent;
-  margin: 1rem;
-  border-radius: 16px;
-  padding: 2rem;
+  margin: 0 auto;
+  padding: 1rem;
   position: relative;
   z-index: 1;
+  width: 100%;
+  max-width: 100%;
+  flex-direction: column;
 }
 
 .weather-display {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
   width: 100%;
-  max-width: 1200px;
+  max-width: 100%;
+  margin: 0 auto;
   background: var(--card-bg);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
   border-radius: 16px;
-  padding: 2rem;
+  padding: 1rem;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   border: 1px solid var(--card-border);
   flex-wrap: wrap;
-  gap: 2rem;
+  gap: 1rem;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .left.data, .right.data {
   flex: 1;
   min-width: 280px;
   text-align: center;
+  width: 100%;
+  margin-bottom: 1rem;
 }
 
 .weather-icon-container {
@@ -246,16 +249,19 @@ body {
   color: rgba(255, 255, 255, 0.8);
 }
 
-/* Footer */
+/* Make footer full width */
 .footer {
   background: rgba(0, 88, 255, 0.5);
   color: white;
   padding: 1.5rem 2rem;
   font-size: 0.9rem;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
   position: relative;
   z-index: 1;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 1rem;
+  text-align: center;
 }
 
 .data-list {
@@ -266,6 +272,8 @@ body {
   gap: 2rem;
   max-width: 1200px;
   margin: 0 auto;
+  width: 100%;
+  max-width: 600px;
 }
 
 .temperature-range, .weather-summary {
@@ -281,17 +289,18 @@ body {
   align-items: center;
   gap: 0.8rem;
   background: var(--card-bg);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
   padding: 1rem 1.5rem;
   border-radius: 12px;
   border: 1px solid var(--card-border);
   transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .range-item:hover, .summary-item:hover {
   transform: translateY(-3px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.2);
 }
 
 .range-icon {
@@ -330,19 +339,19 @@ body {
 }
 
 .daily-data {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--card-bg);
   border-radius: 12px;
   padding: 1rem;
   cursor: pointer;
   user-select: none;
   -webkit-user-select: none;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--card-border);
   width: 160px;
   text-align: center;
   margin-bottom: 1rem;
   transition: all 0.3s ease;
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .daily-data:hover,
@@ -440,50 +449,104 @@ body {
   }
 }
 
-/* Responsive */
+/* === Enhanced Mobile Responsiveness Fix === */
+
 @media (max-width: 768px) {
-  .navbar {
-    flex-direction: column;
-    gap: 1rem;
-    padding: 1rem;
+  body {
+    overflow-x: hidden;
+  }
+  
+  .main {
+    padding: 0.5rem;
   }
   
   .weather-display {
-    flex-direction: column;
-    align-items: center;
-    padding: 1.5rem;
+    padding: 0.5rem;
   }
   
-  .left.data, .right.data {
+  .footer {
+    padding: 0.5rem;
+  }
+
+  .navbar {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .styled-select {
     width: 100%;
+    min-width: unset;
   }
-  
-  .temperature-range, .weather-summary {
-    flex-direction: column;
-    gap: 1rem;
+
+  .main,
+  .data-list,
+  .footer {
+    padding: 0.75rem;
   }
-  
-  .data-details.added {
-    flex-direction: column;
-    align-items: center;
-  }
-  
+
   .daily-data {
     width: 100%;
-    max-width: 280px;
+    padding: 1rem;
   }
 }
 
 @media (max-width: 480px) {
   #summary-temp {
-    font-size: 4rem;
+    font-size: 3.5rem;
   }
   
   #present-time {
-    font-size: 2.5rem;
+    font-size: 2rem;
   }
   
   .location-text {
-    font-size: 1.2rem;
+    font-size: 1rem;
+  }
+  
+  .daily-data {
+    width: 100%;
+    max-width: none;
+    padding: 0.5rem;
+  }
+
+  .navbar {
+    padding: 0.75rem;
+  }
+  
+  .navbar h1.page {
+    font-size: 1.5rem;
+  }
+  
+  .tagline {
+    font-size: 0.7rem;
+  }
+  
+  .styled-select {
+    min-width: 200px;
+  }
+}
+
+@media (max-width: 600px) {
+  .navbar {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .styled-select {
+    width: 100%;
+    min-width: unset;
+  }
+
+  .main,
+  .data-list,
+  .footer {
+    padding: 0.75rem;
+  }
+
+  .daily-data {
+    width: 100%;
+    padding: 1rem;
   }
 }
