@@ -1,746 +1,255 @@
-// Enhanced Weather App with Gradient Earth Theme
-// Developed by Cebo Mlotshwa
+// WeEuroSA: live weather for Europe and South Africa from the 7Timer! API.
+// Developed by Cebo Mlotshwa.
 
-const cityCoordinates = [
-  // South African cities
-  {
-    latitude: "-26.2041",
-    longitude: "28.0473",
-    city: "Johannesburg",
-    country: "South Africa"
-  },
-  {
-    latitude: "-33.9249",
-    longitude: "18.4241",
-    city: "Cape Town",
-    country: "South Africa"
-  },
-  {
-    latitude: "-29.8587",
-    longitude: "31.0218",
-    city: "Durban",
-    country: "South Africa"
-  },
-  {
-    latitude: "-25.7479",
-    longitude: "28.2293",
-    city: "Pretoria",
-    country: "South Africa"
-  },
-  {
-    latitude: "-29.1183",
-    longitude: "26.2142",
-    city: "Bloemfontein",
-    country: "South Africa"
-  },
-  // European cities
-  {
-    latitude: "52.367",
-    longitude: "4.904",
-    city: "Amsterdam",
-    country: "Netherlands"
-  },
-  {
-    latitude: "39.933",
-    longitude: "32.859",
-    city: "Ankara",
-    country: "Turkey"
-  },
-  {
-    latitude: "56.134",
-    longitude: "12.945",
-    city: "Åstorp",
-    country: "Sweden"
-  },
-  {
-    latitude: "37.983",
-    longitude: "23.727",
-    city: "Athens",
-    country: "Greece"
-  },
-  {
-    latitude: "54.597",
-    longitude: "-5.930",
-    city: "Belfast",
-    country: "Northern Ireland"
-  },
-  {
-    latitude: "41.387",
-    longitude: "2.168",
-    city: "Barcelona",
-    country: "Spain"
-  },
-  {
-    latitude: "52.520",
-    longitude: "13.405",
-    city: "Berlin",
-    country: "Germany"
-  },
-  {
-    latitude: "46.948",
-    longitude: "7.447",
-    city: "Bern",
-    country: "Switzerland"
-  },
-  {
-    latitude: "43.263",
-    longitude: "-2.935",
-    city: "Bilbao",
-    country: "Spain"
-  },
-  {
-    latitude: "50.847",
-    longitude: "4.357",
-    city: "Brussels",
-    country: "Belgium"
-  },
-  {
-    latitude: "47.497",
-    longitude: "19.040",
-    city: "Bucharest",
-    country: "Romania"
-  },
-  {
-    latitude: "59.329",
-    longitude: "18.068",
-    city: "Budapest",
-    country: "Hungary"
-  },
-  {
-    latitude: "51.483",
-    longitude: "-3.168",
-    city: "Cardiff",
-    country: "Wales"
-  },
-  {
-    latitude: "50.937",
-    longitude: "6.96",
-    city: "Cologne",
-    country: "Germany"
-  },
-  {
-    latitude: "55.676",
-    longitude: "12.568",
-    city: "Copenhagen",
-    country: "Denmark"
-  },
-  {
-    latitude: "51.898",
-    longitude: "-8.475",
-    city: "Cork",
-    country: "Ireland"
-  },
-  {
-    latitude: "53.349",
-    longitude: "-6.260",
-    city: "Dublin",
-    country: "Ireland"
-  },
-  {
-    latitude: "55.953",
-    longitude: "-3.188",
-    city: "Edinburgh",
-    country: "Scotland"
-  },
-  {
-    latitude: "43.7696",
-    longitude: "11.255",
-    city: "Florence",
-    country: "Italy"
-  },
-  {
-    latitude: "50.110",
-    longitude: "8.682",
-    city: "Frankfurt",
-    country: "Germany"
-  },
-  {
-    latitude: "43.254",
-    longitude: "6.637",
-    city: "French Riviera",
-    country: "France"
-  },
-  {
-    latitude: "32.650",
-    longitude: "-16.908",
-    city: "Funchal",
-    country: "Portugal"
-  },
-  {
-    latitude: "36.140",
-    longitude: "-5.353",
-    city: "Gibraltar",
-    country: "British Territory"
-  },
-  {
-    latitude: "57.708",
-    longitude: "11.974",
-    city: "Gothenburg",
-    country: "Sweden"
-  },
-  {
-    latitude: "53.548",
-    longitude: "9.987",
-    city: "Hamburg",
-    country: "Germany"
-  },
-  {
-    latitude: "60.169",
-    longitude: "24.938",
-    city: "Helsinki",
-    country: "Finland"
-  },
-  {
-    latitude: "39.020",
-    longitude: "1.482",
-    city: "Ibiza",
-    country: "Spain"
-  },
-  {
-    latitude: "50.450",
-    longitude: "30.523",
-    city: "Kyiv",
-    country: "Ukraine"
-  },
-  {
-    latitude: "61.115",
-    longitude: "10.466",
-    city: "Lillehammer",
-    country: "Norway"
-  },
-  {
-    latitude: "38.722",
-    longitude: "-9.139",
-    city: "Lisbon",
-    country: "Portugal"
-  },
-  {
-    latitude: "51.507",
-    longitude: "-0.127",
-    city: "London",
-    country: "England"
-  },
-  {
-    latitude: "40.416",
-    longitude: "-3.703",
-    city: "Madrid",
-    country: "Spain"
-  },
-  {
-    latitude: "39.695",
-    longitude: "3.017",
-    city: "Mallorca",
-    country: "Spain"
-  },
-  {
-    latitude: "53.480",
-    longitude: "-2.242",
-    city: "Manchester",
-    country: "England"
-  },
-  {
-    latitude: "43.296",
-    longitude: "5.369",
-    city: "Marseille",
-    country: "France"
-  },
-  {
-    latitude: "27.760",
-    longitude: "-15.586",
-    city: "Maspalomas",
-    country: "Spain"
-  },
-  {
-    latitude: "45.464",
-    longitude: "9.190",
-    city: "Milan",
-    country: "Italy"
-  },
-  {
-    latitude: "48.135",
-    longitude: "11.582",
-    city: "Munich",
-    country: "Germany"
-  },
-  {
-    latitude: "40.851",
-    longitude: "14.268",
-    city: "Naples",
-    country: "Italy"
-  },
-  {
-    latitude: "43.034",
-    longitude: "-2.417",
-    city: "Oñati",
-    country: "Spain"
-  },
-  {
-    latitude: "59.913",
-    longitude: "10.752",
-    city: "Oslo",
-    country: "Norway"
-  },
-  {
-    latitude: "48.856",
-    longitude: "2.352",
-    city: "Paris",
-    country: "France"
-  },
-  {
-    latitude: "50.075",
-    longitude: "14.437",
-    city: "Prague",
-    country: "Czech Republic"
-  },
-  {
-    latitude: "64.146",
-    longitude: "-21.942",
-    city: "Reykjavík",
-    country: "Iceland"
-  },
-  {
-    latitude: "56.879",
-    longitude: "24.603",
-    city: "Riga",
-    country: "Latvia"
-  },
-  {
-    latitude: "41.902",
-    longitude: "12.496",
-    city: "Rome",
-    country: "Italy"
-  },
-  {
-    latitude: "39.453",
-    longitude: "-31.127",
-    city: "Santa Cruz das Flores",
-    country: "Portugal"
-  },
-  {
-    latitude: "28.463",
-    longitude: "-16.251",
-    city: "Santa Cruz de Tenerife",
-    country: "Spain"
-  },
-  {
-    latitude: "57.273",
-    longitude: "-6.215",
-    city: "Skye",
-    country: "Scotland"
-  },
-  {
-    latitude: "42.697",
-    longitude: "23.321",
-    city: "Sofia",
-    country: "Bulgaria"
-  },
-  {
-    latitude: "59.437",
-    longitude: "24.753",
-    city: "Tallinn",
-    country: "Estonia"
-  },
-  {
-    latitude: "48.208",
-    longitude: "16.373",
-    city: "Vienna",
-    country: "Austria"
-  },
-  {
-    latitude: "52.229",
-    longitude: "21.012",
-    city: "Warsaw",
-    country: "Poland"
-  },
-  {
-    latitude: "53.961",
-    longitude: "-1.07",
-    city: "York",
-    country: "England"
-  },
-  {
-    latitude: "47.376",
-    longitude: "8.541",
-    city: "Zurich",
-    country: "Switzerland"
+const API = 'https://www.7timer.info/bin/api.pl';
+const GEO = 'https://nominatim.openstreetmap.org/reverse';
+const STORE_KEY = 'weeurosa:city';
+
+// Time zones so each city shows its own local time.
+const ZONES = {
+  'South Africa': 'Africa/Johannesburg', Netherlands: 'Europe/Amsterdam', Turkey: 'Europe/Istanbul', Sweden: 'Europe/Stockholm',
+  Greece: 'Europe/Athens', 'Northern Ireland': 'Europe/London', England: 'Europe/London', Wales: 'Europe/London', Scotland: 'Europe/London',
+  Spain: 'Europe/Madrid', Germany: 'Europe/Berlin', Switzerland: 'Europe/Zurich', Belgium: 'Europe/Brussels', Romania: 'Europe/Bucharest',
+  Hungary: 'Europe/Budapest', Denmark: 'Europe/Copenhagen', Ireland: 'Europe/Dublin', Italy: 'Europe/Rome', France: 'Europe/Paris',
+  Portugal: 'Europe/Lisbon', 'British Territory': 'Europe/Gibraltar', Finland: 'Europe/Helsinki', Ukraine: 'Europe/Kyiv', Norway: 'Europe/Oslo',
+  'Czech Republic': 'Europe/Prague', Iceland: 'Atlantic/Reykjavik', Latvia: 'Europe/Riga', Bulgaria: 'Europe/Sofia', Estonia: 'Europe/Tallinn',
+  Austria: 'Europe/Vienna', Poland: 'Europe/Warsaw'
+};
+const CITY_ZONES = { Maspalomas: 'Atlantic/Canary', 'Santa Cruz de Tenerife': 'Atlantic/Canary', Funchal: 'Atlantic/Madeira', 'Santa Cruz das Flores': 'Atlantic/Azores' };
+
+const WEATHER = {
+  clear: 'Clear', pcloudy: 'Partly cloudy', mcloudy: 'Mostly cloudy', cloudy: 'Cloudy', humid: 'Humid and hazy', fog: 'Fog',
+  lightrain: 'Light rain', oshower: 'Occasional showers', ishower: 'Isolated showers', rain: 'Rain', lightsnow: 'Light snow',
+  snow: 'Snow', rainsnow: 'Rain and snow', tsrain: 'Thunderstorms', tstorm: 'Thunderstorms possible'
+};
+const WIND = ['', 'Calm', 'Light', 'Moderate', 'Fresh', 'Strong', 'Gale', 'Storm', 'Hurricane'];
+const WIND_KMH = ['', '0 to 1', '1 to 12', '12 to 29', '29 to 39', '39 to 62', '62 to 88', '88 to 117', 'over 117'];
+const DIRS = { N: 'north', NE: 'northeast', E: 'east', SE: 'southeast', S: 'south', SW: 'southwest', W: 'west', NW: 'northwest' };
+const CLOUD_PCT = [0, 3, 12, 25, 37, 50, 62, 75, 87, 97];
+const RAIN = ['None', 'Under 0.25 mm', '0.25 to 1 mm', '1 to 4 mm', '4 to 10 mm', '10 to 16 mm', '16 to 30 mm', '30 to 50 mm', '50 to 75 mm', 'Over 75 mm'];
+
+const $ = (id) => document.getElementById(id);
+const els = {
+  city: $('city'), locate: $('locate'), place: $('place'), country: $('country'), date: $('date'), temp: $('temp'), icon: $('icon'),
+  cond: $('cond'), range: $('range'), humidity: $('humidity'), wind: $('wind'), windS: $('wind-s'), cloud: $('cloud'), cloudS: $('cloud-s'),
+  rain: $('rain'), hours: $('hours'), days: $('days'), status: $('status'), app: document.querySelector('.app')
+};
+let current = null;
+let requestId = 0;
+
+/* ---------- icons ---------- */
+const cloudPath = (x, y, s, cls = 'cloud') =>
+  `<path class="${cls}" transform="translate(${x} ${y}) scale(${s})" d="M14 30h20a8 8 0 0 0 0-16 11 11 0 0 0-21 3 6.5 6.5 0 0 0 1 13z"/>`;
+const sun = (cx, cy, r) => {
+  let rays = '';
+  for (let i = 0; i < 8; i++) {
+    const a = (i * Math.PI) / 4;
+    rays += `<line class="sun-ray" x1="${(cx + Math.cos(a) * (r + 4)).toFixed(1)}" y1="${(cy + Math.sin(a) * (r + 4)).toFixed(1)}" x2="${(cx + Math.cos(a) * (r + 8)).toFixed(1)}" y2="${(cy + Math.sin(a) * (r + 8)).toFixed(1)}"/>`;
   }
-];
-
-const weathermap = {
-  tsrain: "Thunderstorm with rain",
-  snow: "Snow",
-  rain: "Rain",
-  fog: "Foggy",
-  humid: "Relatively Humid",
-  lightrain: "Light rain or showers",
-  cloudy: "Cloudy",
-  oshower: "Occasional showers",
-  ishower: "Isolated showers",
-  lightsnow: "Light snow",
-  tstorm: "Thunderstorm",
-  clear: "Clear",
-  pcloudy: "Partly Cloudy",
-  mcloudy: "Mostly Cloudy",
-  rainsnow: "Mixed rain and snow"
+  return rays + `<circle class="sun-core" cx="${cx}" cy="${cy}" r="${r}"/>`;
 };
+const moon = (cx, cy, r) => `<path class="moon" d="M${cx + r * 0.3} ${cy - r}a${r} ${r} 0 1 0 ${r * 0.7} ${r * 1.55}A${r * 0.82} ${r * 0.82} 0 0 1 ${cx + r * 0.3} ${cy - r}z"/>`;
+const drops = (n) => [16, 24, 32].slice(0, n).map((x) => `<line class="drop" x1="${x}" y1="38" x2="${x - 2}" y2="44"/>`).join('');
+const flakes = () => [17, 25, 33].map((x, i) => `<circle class="flake" cx="${x}" cy="${40 + (i % 2) * 3}" r="2"/>`).join('');
 
-const iconMap = {
-  tsrain: "thunderstorm.svg",
-  snow: "snow.svg",
-  rain: "rain.svg",
-  fog: "fog.svg",
-  humid: "humidity.svg",
-  lightrain: "light-rain.svg",
-  cloudy: "cloudy.svg",
-  oshower: "showers.svg",
-  ishower: "showers.svg",
-  lightsnow: "light-snow.svg",
-  tstorm: "thunderstorm.svg",
-  clear: "clear.svg",
-  pcloudy: "partly-cloudy.svg",
-  mcloudy: "mostly-cloudy.svg",
-  rainsnow: "rain-snow.svg"
-};
-
-const options = {
-  weekday: "long",
-  month: "short",
-  day: "2-digit",
-  year: "numeric"
-};
-
-const time = new Date();
-let meteoData;
-const selectElement = document.querySelector("select");
-const summaryTemp = document.querySelector("#summary-temp");
-const locationEl = document.querySelector("#location");
-const presentDay = document.querySelector("#present-day");
-const presentTime = document.querySelector("#present-time");
-const humidity = document.querySelector("#humid");
-const wind = document.querySelector("#wind");
-const tempHigh = document.querySelector("#highest");
-const tempLow = document.querySelector("#lowest");
-const weekWeather = document.querySelector("#weekly-weather");
-const weatherPoint = document.querySelector("#weekly-weather-point");
-const dailyContainer = document.querySelector(".data-details");
-const main = document.querySelector(".main");
-const weatherIcon = document.querySelector(".wicon");
-const backgroundGradient = document.querySelector(".background-gradient");
-
-// Initialize the app
-function initApp() {
-  updateDateTime();
-  setInterval(updateDateTime, 60000); // Update time every minute
-  populateLocationSelect();
-  initGeolocation();
-  addEventListeners();
-  applyDynamicGradient();
-  setInterval(() => {
-    const selectedCityIndex = selectElement.selectedIndex - 1; // Adjust for the "Select a location" option
-    if (selectedCityIndex >= 0) {
-      updateData(cityCoordinates[selectedCityIndex]); // Update weather data every 5 minutes
+function icon(code, night) {
+  const body = (() => {
+    switch (code) {
+      case 'clear': return night ? moon(24, 24, 11) : sun(24, 24, 9);
+      case 'pcloudy': return (night ? moon(18, 17, 8) : sun(18, 17, 7)) + cloudPath(6, 8, 1);
+      case 'mcloudy': return (night ? moon(16, 14, 7) : sun(16, 14, 6)) + cloudPath(2, 6, 1, 'cloud back') + cloudPath(8, 10, 0.95);
+      case 'cloudy': return cloudPath(-2, 2, 1, 'cloud back') + cloudPath(5, 8, 1);
+      case 'humid':
+      case 'fog': return cloudPath(2, -2, 1, 'cloud back') + '<line class="mist" x1="10" y1="34" x2="38" y2="34"/><line class="mist" x1="14" y1="40" x2="34" y2="40"/>';
+      case 'lightrain':
+      case 'oshower':
+      case 'ishower': return (night ? '' : sun(32, 12, 5)) + cloudPath(2, 2, 1) + drops(2);
+      case 'rain': return cloudPath(2, 2, 1) + drops(3);
+      case 'lightsnow':
+      case 'snow': return cloudPath(2, 2, 1) + flakes();
+      case 'rainsnow': return cloudPath(2, 2, 1) + '<line class="drop" x1="17" y1="38" x2="15" y2="44"/><circle class="flake" cx="25" cy="42" r="2"/><line class="drop" x1="33" y1="38" x2="31" y2="44"/>';
+      case 'tsrain':
+      case 'tstorm': return cloudPath(2, 0, 1) + '<path class="bolt" d="M25 30l-6 9h5l-2 8 8-11h-5l3-6z"/>';
+      default: return cloudPath(5, 8, 1);
     }
-  }, 300000); // 300000 ms = 5 minutes
-  
-  // Ensure proper sizing
-  window.addEventListener('resize', adjustLayout);
-  adjustLayout();
+  })();
+  return `<svg viewBox="0 0 48 48" role="img" aria-label="${WEATHER[code] || 'Weather'}">${body}</svg>`;
 }
 
-// Update date and time display
-function updateDateTime() {
+/* ---------- helpers ---------- */
+const zoneFor = (c) => c.zone || CITY_ZONES[c.city] || ZONES[c.country] || Intl.DateTimeFormat().resolvedOptions().timeZone;
+const baseCode = (w) => String(w || '').replace(/(day|night)$/, '');
+const isNight = (w) => /night$/.test(String(w || ''));
+const pct = (v) => parseInt(String(v), 10);
+const local = (date, zone, opts) => new Intl.DateTimeFormat(undefined, { timeZone: zone, ...opts }).format(date);
+const localHour = (date, zone) => parseInt(new Intl.DateTimeFormat('en-GB', { timeZone: zone, hour: 'numeric', hour12: false }).format(date), 10) % 24;
+const initDate = (init) => new Date(Date.UTC(+init.slice(0, 4), +init.slice(4, 6) - 1, +init.slice(6, 8), +init.slice(8, 10)));
+const dayDate = (n) => { const s = String(n); return new Date(Date.UTC(+s.slice(0, 4), +s.slice(4, 6) - 1, +s.slice(6, 8), 12)); };
+
+async function fetchJSON(url, tries = 2) {
+  let last;
+  for (let i = 0; i < tries; i++) {
+    try {
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const text = (await res.text()).replace(/,\s*([}\]])/g, '$1'); // 7Timer sometimes sends trailing commas
+      return JSON.parse(text);
+    } catch (err) {
+      last = err;
+      await new Promise((r) => setTimeout(r, 800 * (i + 1)));
+    }
+  }
+  throw last;
+}
+const forecast = (c, product) => fetchJSON(`${API}?lon=${c.lon}&lat=${c.lat}&product=${product}&unit=metric&output=json`);
+
+function setStatus(text, err = false) {
+  els.status.textContent = text;
+  els.status.classList.toggle('err', err);
+}
+
+/* ---------- render ---------- */
+function setSky(code, night, hour) {
+  let sky = 'day';
+  if (night || hour < 5 || hour >= 20) sky = 'night';
+  else if (hour < 9) sky = 'morning';
+  else if (hour >= 17) sky = 'evening';
+  if (sky === 'day' && ['cloudy', 'rain', 'tsrain', 'tstorm', 'fog', 'snow', 'rainsnow'].includes(code)) sky = 'grey';
+  document.body.dataset.sky = sky;
+}
+
+function render(city, civil, light) {
+  const zone = zoneFor(city);
   const now = new Date();
-  presentTime.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-  presentDay.textContent = now.toLocaleDateString([], options);
+  const start = initDate(civil.init);
+  const series = civil.dataseries.map((d) => ({ ...d, at: new Date(start.getTime() + d.timepoint * 3600e3) }));
+  const idx = Math.max(0, series.findIndex((d) => d.at.getTime() > now.getTime() - 90 * 60e3));
+  const cur = series[idx];
+  const code = baseCode(cur.weather);
+  const night = isNight(cur.weather);
+  const today = light.dataseries[0];
+
+  els.place.textContent = city.city;
+  els.country.textContent = city.country || '';
+  els.date.textContent = local(now, zone, { weekday: 'long', day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' });
+  els.temp.textContent = `${Math.round(cur.temp2m)}°`;
+  els.icon.innerHTML = icon(code, night);
+  els.cond.textContent = WEATHER[code] || 'Mixed';
+  els.range.textContent = `High ${today.temp2m.max}° · Low ${today.temp2m.min}°`;
+
+  els.humidity.textContent = `${pct(cur.rh2m)}%`;
+  const ws = cur.wind10m.speed;
+  els.wind.textContent = WIND[ws] || '--';
+  els.windS.textContent = `${DIRS[cur.wind10m.direction] ? `From the ${DIRS[cur.wind10m.direction]}` : 'Variable'}, ${WIND_KMH[ws] || '?'} km/h`;
+  const cc = CLOUD_PCT[cur.cloudcover] ?? 0;
+  els.cloud.textContent = `${cc}%`;
+  els.cloudS.textContent = cc < 10 ? 'Clear sky' : cc < 35 ? 'A few clouds' : cc < 65 ? 'Partly cloudy' : cc < 90 ? 'Mostly cloudy' : 'Overcast';
+  els.rain.textContent = cur.prec_type === 'none' || !cur.prec_amount ? 'None' : RAIN[cur.prec_amount] || '--';
+
+  els.hours.innerHTML = series.slice(idx, idx + 8).map((d, i) => `
+    <div class="hour">
+      <span>${i === 0 ? 'Now' : local(d.at, zone, { hour: 'numeric' })}</span>
+      <span class="ic">${icon(baseCode(d.weather), isNight(d.weather))}</span>
+      <b>${Math.round(d.temp2m)}°</b>
+    </div>`).join('');
+
+  const days = light.dataseries.slice(0, 7);
+  const lo = Math.min(...days.map((d) => d.temp2m.min));
+  const hi = Math.max(...days.map((d) => d.temp2m.max));
+  const span = Math.max(1, hi - lo);
+  els.days.innerHTML = days.map((d, i) => `
+    <li class="day">
+      <span class="day-name">${i === 0 ? 'Today' : local(dayDate(d.date), 'UTC', { weekday: 'short', day: 'numeric' })}</span>
+      <span class="ic">${icon(d.weather, false)}</span>
+      <span class="day-desc">${WEATHER[d.weather] || 'Mixed'}</span>
+      <span class="day-min">${d.temp2m.min}°</span>
+      <span class="bar"><i style="left:${((d.temp2m.min - lo) / span) * 100}%;right:${100 - ((d.temp2m.max - lo) / span) * 100}%"></i></span>
+      <span class="day-max">${d.temp2m.max}°</span>
+    </li>`).join('');
+
+  setSky(code, night, localHour(now, zone));
+  document.title = `${Math.round(cur.temp2m)}° ${city.city} | WeEuroSA`;
 }
 
-// Apply dynamic gradient based on time of day
-function applyDynamicGradient() {
-  const hour = new Date().getHours();
-  let gradient;
-  
-  if (hour >= 6 && hour < 12) {
-    // Morning gradient (sunrise)
-    gradient = "linear-gradient(135deg, var(--dark-blue) 0%, var(--earth-blue) 50%, var(--secondary-color) 100%)";
-  } else if (hour >= 12 && hour < 18) {
-    // Daytime gradient
-    gradient = "linear-gradient(135deg, var(--dark-blue) 0%, var(--earth-blue) 50%, var(--earth-green) 100%)";
-  } else if (hour >= 18 && hour < 21) {
-    // Evening gradient (sunset)
-    gradient = "linear-gradient(135deg, var(--dark-blue) 0%, var(--sunset-purple) 50%, var(--sunset-orange) 100%)";
-  } else {
-    // Night gradient
-    gradient = "linear-gradient(135deg, var(--night-blue) 0%, var(--night-dark-blue) 100%)";
-  }
-  
-  document.querySelector('.background-gradient').style.background = gradient;
-}
-
-// Populate location select dropdown
-function populateLocationSelect() {
-  cityCoordinates.forEach((location, i) => {
-    const option = document.createElement("option");
-    option.text = `${location.city}, ${location.country}`;
-    option.value = `${location.city} ${i}`;
-    selectElement.add(option);
-  });
-}
-
-// Add event listeners
-function addEventListeners() {
-  selectElement.addEventListener("change", handleLocationSelect);
-  document.querySelector(".page").addEventListener("click", () => {
-    location.reload();
-    showLoadingAnimation();
-  });
-  window.addEventListener("online", initGeolocation);
-}
-
-// Handle location selection
-function handleLocationSelect(e) {
-  dailyContainer.innerHTML = "";
-  dailyContainer.classList.remove("added");
-  showLoadingAnimation("Getting weather data");
-  
-  const arr = e.target.value.slice().split(" ");
-  const num = +arr[arr.length - 1];
-  const cityObj = cityCoordinates[num];
-  
-  updateData(cityObj, true);
-}
-
-// Initialize geolocation
-function initGeolocation() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-      (success) => {
-        const { latitude, longitude } = success.coords;
-        const city = {
-          latitude: +latitude.toFixed(3),
-          longitude: +longitude.toFixed(3),
-        };
-        userLocationGetData(city);
-      },
-      (error) => {
-        dailyContainer.innerHTML = "";
-        dailyContainer.classList.remove("added");
-        dailyContainer.textContent = `Location access denied. Please select a location manually or enable location services.`;
-        console.error(`Geolocation error: ${error.message}`);
-      }
-    );
-  } else {
-    dailyContainer.textContent = `Geolocation is not supported by your browser. Please select a location manually.`;
-  }
-}
-
-// Show loading animation
-function showLoadingAnimation(text = "Loading") {
-  dailyContainer.innerHTML = `
-    <div class="loading-container">
-      <div class="loading-text">${text}</div>
-      <div class="dot-container">
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
-      </div>
-    </div>`;
-}
-
-// Get city data from API
-async function getCityData(city, product) {
+async function load(city) {
+  const id = ++requestId;
+  current = city;
+  els.app.classList.add('loading');
+  setStatus(`Getting the forecast for ${city.city}…`);
   try {
-    const res = await fetch(
-      `https://www.7timer.info/bin/api.pl?lon=${city.longitude}&lat=${city.latitude}&product=${product}&unit=metric&output=json`
-    );
-    
-    if (!res.ok) {
-      throw new Error(`HTTP error! status: ${res.status}`);
-    }
-    
-    const text = await res.text();
-    
-    // Try to clean malformed JSON if needed
-    const cleanedText = text
-      .replace(/,\s*}/g, '}')  // Remove trailing commas
-      .replace(/,\s*]/g, ']'); // Remove trailing commas in arrays
-    
-    try {
-      return JSON.parse(cleanedText);
-    } catch (parseError) {
-      console.error('Failed to parse JSON:', cleanedText);
-      throw new Error(`Invalid JSON received from API: ${parseError.message}`);
-    }
-    
-  } catch (error) {
-    console.error(`Error fetching data: ${error.message}`);
-    throw new Error(`Failed to get weather data: ${error.message}`);
+    const [civil, light] = await Promise.all([forecast(city, 'civil'), forecast(city, 'civillight')]);
+    if (id !== requestId) return; // a newer request has started
+    render(city, civil, light);
+    setStatus('');
+  } catch (err) {
+    if (id !== requestId) return;
+    console.error(err);
+    setStatus('The forecast service is not responding right now. Please try again in a minute.', true);
+  } finally {
+    if (id === requestId) els.app.classList.remove('loading');
   }
 }
 
-// Get user location data
-async function userLocationGetData(city) {
-  dailyContainer.innerHTML = "";
-  dailyContainer.classList.remove("added");
-  showLoadingAnimation("Detecting your location");
-  
-  try {
-    const res = await fetch(
-      `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${city.latitude}&lon=${city.longitude}`
-    );
-    if (!res.ok) throw new Error("Location service unavailable");
-    
-    const data = await res.json();
-    if (!data.address) throw new Error("Could not determine location");
-    
-    await updateData({
-      ...city,
-      city: data.address.city || data.address.town || data.address.village || "Current Location",
-      country: data.address.country
-    });
-    
-    dailyContainer.innerHTML = "";
-  } catch (error) {
-    locationEl.textContent = `Current Location`;
-    console.error(`Location error: ${error.message}`);
+/* ---------- location ---------- */
+function locate() {
+  if (!navigator.geolocation) {
+    setStatus('Your browser does not share location. Pick a city instead.', true);
+    return;
   }
+  setStatus('Finding your location…');
+  navigator.geolocation.getCurrentPosition(
+    async ({ coords }) => {
+      const here = { city: 'Your location', country: '', lat: +coords.latitude.toFixed(3), lon: +coords.longitude.toFixed(3), zone: Intl.DateTimeFormat().resolvedOptions().timeZone };
+      try {
+        const geo = await fetchJSON(`${GEO}?format=jsonv2&lat=${here.lat}&lon=${here.lon}`, 1);
+        const a = geo.address || {};
+        here.city = a.city || a.town || a.village || a.suburb || a.county || here.city;
+        here.country = a.country || '';
+      } catch (e) { /* keep the generic name */ }
+      els.city.value = '';
+      load(here);
+    },
+    () => setStatus('Location access was blocked. Pick a city from the list instead.', true),
+    { timeout: 10000, maximumAge: 600000 }
+  );
 }
 
-// Update all weather data
-async function updateData(cityObj, daily = false) {
-  try {
-    showLoadingAnimation("Fetching weather data");
-    
-    const [meteoData, civilLightData, civilData] = await Promise.all([
-      getCityData(cityObj, "meteo"),
-      getCityData(cityObj, "civillight"),
-      getCityData(cityObj, "civil"),
-    ]);
-    
-    updateSummary(meteoData, cityObj);
-    updateWeatherStats(meteoData, civilLightData, civilData);
-    
-    if (daily) {
-      createDailyForecast(civilLightData);
+/* ---------- start ---------- */
+function fillPicker() {
+  const groups = {};
+  CITIES.forEach((c, i) => {
+    if (!groups[c.region]) {
+      groups[c.region] = document.createElement('optgroup');
+      groups[c.region].label = c.region;
     }
-    
-  } catch (error) {
-    dailyContainer.innerHTML = `
-      <div class="error-message">
-        <i class="fas fa-exclamation-triangle"></i>
-        <p>${error.message}</p>
-      </div>
-    `;
-    console.error(error);
-  }
-}
-
-// Update summary weather information
-function updateSummary(data, cityObj) {
-  const currentWeather = data.dataseries[0];
-  const weatherCode = currentWeather.weather;
-  const weatherDescription = weathermap[weatherCode] || "Unknown weather condition";
-  
-  // Update main weather display
-  summaryTemp.textContent = `${currentWeather.temp2m}°`;
-  locationEl.textContent = `${cityObj.city}, ${cityObj.country}`;
-  
-  // Update weather icon
-  const iconName = iconMap[weatherCode] || "clear.svg";
-  weatherIcon.src = `./images/${iconName}`;
-  weatherIcon.alt = weatherDescription;
-  
-  // Animate weather icon change
-  weatherIcon.style.opacity = 0;
-  setTimeout(() => {
-    weatherIcon.style.opacity = 1;
-    weatherIcon.style.transform = "scale(1.1)";
-    setTimeout(() => {
-      weatherIcon.style.transform = "scale(1)";
-    }, 300);
-  }, 200);
-}
-
-// Update weather statistics
-function updateWeatherStats(meteoData, civilLightData, civilData) {
-  const currentWeather = meteoData.dataseries[0];
-  const todayForecast = civilLightData.dataseries[0];
-  
-  // Update current weather stats
-  humidity.textContent = `${currentWeather.rh2m}%`;
-  wind.textContent = `${currentWeather.wind10m.speed}m/s | ${currentWeather.wind10m.direction}°`;
-  
-  // Update temperature range
-  tempHigh.textContent = `${todayForecast.temp2m.max}°C`;
-  tempLow.textContent = `${todayForecast.temp2m.min}°C`;
-  
-  // Update weekly weather summary
-  weekWeather.textContent = weathermap[todayForecast.weather] || "Various";
-  weatherPoint.textContent = `${currentWeather.prec_amount}mm`;
-}
-
-// Create daily forecast
-function createDailyForecast(data) {
-  dailyContainer.innerHTML = "";
-  dailyContainer.classList.add("added");
-  
-  // Limit to 7 days forecast
-  const forecastDays = data.dataseries.slice(0, 7);
-  
-  forecastDays.forEach(day => {
-    const date = new Date(day.date);
-    const dayElement = document.createElement("div");
-    dayElement.className = "daily-data";
-    dayElement.innerHTML = `
-      <div class="day-name">${date.toLocaleDateString([], { weekday: 'short' })}</div>
-      <div id="img">
-        <img src="./images/${iconMap[day.weather] || 'clear.svg'}" alt="${weathermap[day.weather] || 'Unknown'}">
-      </div>
-      <div id="div">
-        <span class="temp-max">${day.temp2m.max}°</span>
-        <span class="temp-min">${day.temp2m.min}°</span>
-      </div>
-      <div class="weather-desc">${weathermap[day.weather] || 'Unknown'}</div>
-    `;
-    
-    dailyContainer.appendChild(dayElement);
+    groups[c.region].append(new Option(`${c.city}, ${c.country}`, String(i)));
   });
+  const here = new Option('Your location', '');
+  here.hidden = true;
+  els.city.append(here, groups['South Africa'], groups.Europe);
 }
 
-// Initialize the app when DOM is loaded
-document.addEventListener("DOMContentLoaded", initApp);
+function init() {
+  fillPicker();
+  let saved = 0;
+  try { saved = Math.max(0, CITIES.findIndex((c) => c.city === localStorage.getItem(STORE_KEY))); } catch (e) { /* storage blocked */ }
+  els.city.value = String(saved);
+  load(CITIES[saved]);
 
-async function getCityDataWithRetry(city, product, retries = 3) {
-  let lastError;
-  
-  for (let i = 0; i < retries; i++) {
-    try {
-      return await getCityData(city, product);
-    } catch (error) {
-      lastError = error;
-      await new Promise(resolve => setTimeout(resolve, 1000 * (i + 1))); // Wait before retry
-    }
+  els.city.addEventListener('change', () => {
+    const c = CITIES[+els.city.value];
+    if (!c) return;
+    try { localStorage.setItem(STORE_KEY, c.city); } catch (e) { /* storage blocked */ }
+    load(c);
+  });
+  els.locate.addEventListener('click', locate);
+
+  // If location was allowed before, use it without asking again.
+  if (navigator.permissions && navigator.permissions.query) {
+    navigator.permissions.query({ name: 'geolocation' }).then((p) => { if (p.state === 'granted') locate(); }).catch(() => {});
   }
-  
-  throw lastError; // Throw the last error after all retries
+  // Refresh every 15 minutes while the page is open.
+  setInterval(() => { if (current && !document.hidden) load(current); }, 15 * 60e3);
 }
 
-function adjustLayout() {
-  const vh = window.innerHeight * 0.01;
-  document.documentElement.style.setProperty('--vh', `${vh}px`);
-  
-  const main = document.querySelector('.main');
-  const header = document.querySelector('.navbar');
-  const footer = document.querySelector('.footer');
-  
-  // Calculate available height
-  const availableHeight = window.innerHeight - header.offsetHeight - footer.offsetHeight;
-  main.style.minHeight = `${availableHeight}px`;
-}
-
-// Call this on initial load and resize
-document.addEventListener('DOMContentLoaded', () => {
-  initApp();
-  adjustLayout();
-});
-
-window.addEventListener('resize', adjustLayout);
+document.addEventListener('DOMContentLoaded', init);
